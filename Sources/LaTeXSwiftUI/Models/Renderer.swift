@@ -34,6 +34,7 @@ import UIKit
 import Cocoa
 #endif
 
+@available(iOS 16.0, *)
 /// Renders equation components and updates their rendered image and offset
 /// values.
 internal class Renderer: ObservableObject {
@@ -79,6 +80,7 @@ internal class Renderer: ObservableObject {
 
 // MARK: Public methods
 
+@available(iOS 16.0, *)
 extension Renderer {
   
   /// Returns whether the view's components are cached.
@@ -316,7 +318,7 @@ extension Renderer {
 }
 
 // MARK: Private methods
-
+@available(iOS 16.0, *)
 extension Renderer {
   
   /// Gets the LaTeX input's parsed blocks.

@@ -25,6 +25,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 /// The default LaTeX view style.
 public struct DefaultLaTeXStyle: LaTeXStyle {
   
@@ -35,6 +36,7 @@ public struct DefaultLaTeXStyle: LaTeXStyle {
   
 }
 
+@available(iOS 16.0, *)
 extension LaTeXStyle where Self == DefaultLaTeXStyle {
   
   /// The default LaTeX view style.

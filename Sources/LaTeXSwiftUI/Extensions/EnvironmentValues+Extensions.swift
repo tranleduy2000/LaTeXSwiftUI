@@ -30,26 +30,32 @@ private struct ImageRenderingModeKey: EnvironmentKey {
   static let defaultValue: Image.TemplateRenderingMode = .template
 }
 
+@available(iOS 16.0, *)
 private struct ErrorModeKey: EnvironmentKey {
   static let defaultValue: LaTeX.ErrorMode = .original
 }
 
+@available(iOS 16.0, *)
 private struct UnencodeHTMLKey: EnvironmentKey {
   static let defaultValue: Bool = false
 }
 
+@available(iOS 16.0, *)
 private struct ParsingModeKey: EnvironmentKey {
   static let defaultValue: LaTeX.ParsingMode = .onlyEquations
 }
 
+@available(iOS 16.0, *)
 private struct BlockModeKey: EnvironmentKey {
   static let defaultValue: LaTeX.BlockMode = .blockViews
 }
 
+@available(iOS 16.0, *)
 private struct ProcessEscapesKey: EnvironmentKey {
   static let defaultValue: Bool = false
 }
 
+@available(iOS 16.0, *)
 private struct EquationNumberModeKey: EnvironmentKey {
   static let defaultValue: LaTeX.EquationNumberMode = .none
 }
@@ -58,22 +64,27 @@ private struct EquationNumberStartKey: EnvironmentKey {
   static let defaultValue: Int = 1
 }
 
+@available(iOS 16.0, *)
 private struct EquationNumberOffsetKey: EnvironmentKey {
   static let defaultValue: CGFloat = 0.0
 }
 
+@available(iOS 16.0, *)
 private struct FormatEquationNumberKey: EnvironmentKey {
   static let defaultValue: LaTeX.FormatEquationNumber = { "(\($0))" }
 }
 
+@available(iOS 16.0, *)
 private struct RenderingStyleKey: EnvironmentKey {
   static let defaultValue: LaTeX.RenderingStyle = .wait
 }
 
+@available(iOS 16.0, *)
 private struct RenderingAnimationKey: EnvironmentKey {
   static let defaultValue: Animation? = .none
 }
 
+@available(iOS 16.0, *)
 extension EnvironmentValues {
   
   /// The image rendering mode of this environment.

@@ -27,6 +27,7 @@ import CryptoKit
 import Foundation
 import MathJaxSwift
 
+@available(iOS 16.0, *)
 fileprivate protocol CacheKey: Codable {
   
   /// The key type used to identify the cache key in storage.
@@ -37,6 +38,7 @@ fileprivate protocol CacheKey: Codable {
   
 }
 
+@available(iOS 16.0, *)
 extension CacheKey {
   
   /// The key to use in the cache.
@@ -53,6 +55,7 @@ extension CacheKey {
   
 }
 
+@available(iOS 16.0, *)
 internal class Cache {
   
   // MARK: Types
@@ -98,7 +101,7 @@ internal class Cache {
 }
 
 // MARK: Public methods
-
+@available(iOS 16.0, *)
 extension Cache {
   
   /// Safely access the cache value for the given key.

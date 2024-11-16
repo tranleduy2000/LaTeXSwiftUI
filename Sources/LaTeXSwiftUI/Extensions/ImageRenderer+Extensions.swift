@@ -25,6 +25,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 internal extension ImageRenderer {
   
   @MainActor var image: _Image? {

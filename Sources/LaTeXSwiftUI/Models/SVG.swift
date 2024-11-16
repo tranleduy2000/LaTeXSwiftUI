@@ -25,6 +25,7 @@
 
 import Foundation
 
+@available(iOS 16.0, *)
 /// Contains SVG information.
 internal struct SVG: Codable, Hashable {
   
@@ -74,7 +75,7 @@ internal struct SVG: Codable, Hashable {
 }
 
 // MARK: Methods
-
+@available(iOS 16.0, *)
 extension SVG {
   
   /// The JSON encoded value of the receiver.

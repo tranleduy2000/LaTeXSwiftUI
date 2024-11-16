@@ -27,6 +27,7 @@ import HTMLEntities
 import MathJaxSwift
 import SwiftUI
 
+@available(iOS 16.0, *)
 /// A view that can parse and render TeX and LaTeX equations that contain
 /// math-mode marcos.
 public struct LaTeX: View {
@@ -208,6 +209,7 @@ public struct LaTeX: View {
 
 // MARK: Public methods
 
+@available(iOS 16.0, *)
 extension LaTeX {
   
   /// Preloads the view's SVG and image data.
@@ -229,6 +231,7 @@ extension LaTeX {
 
 // MARK: Private methods
 
+@available(iOS 16.0, *)
 extension LaTeX {
   
   /// Checks the renderer's caches for the current view.

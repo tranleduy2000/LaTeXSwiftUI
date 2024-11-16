@@ -25,6 +25,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 /// A protocol that describes the appearance of a LaTeX view.
 public protocol LaTeXStyle {
   

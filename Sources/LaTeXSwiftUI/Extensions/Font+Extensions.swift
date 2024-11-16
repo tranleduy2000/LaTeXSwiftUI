@@ -32,6 +32,7 @@ import UIKit
 import Cocoa
 #endif
 
+@available(iOS 16.0, *)
 internal extension Font {
   
   /// The font's text style.
@@ -58,6 +59,7 @@ internal extension Font {
   
 }
 
+@available(iOS 16.0, *)
 internal extension _Font {
   
   /// Returns the preferred font from a SwiftUI font.

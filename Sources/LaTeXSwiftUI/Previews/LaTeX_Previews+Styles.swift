@@ -25,6 +25,7 @@
 
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct LaTeX_Previews_Styles: PreviewProvider {
   
   static var previews: some View {
