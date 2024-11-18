@@ -9,6 +9,7 @@ import MathJaxSwift
 import XCTest
 @testable import LaTeXSwiftUI
 
+@available(iOS 16.0, *)
 final class ParserTests: XCTestCase {
 
   func assertComponent(_ components: [Component], _ index: Int, _ text: String, _ type: Component.ComponentType, file: StaticString = #file, line: UInt = #line) {

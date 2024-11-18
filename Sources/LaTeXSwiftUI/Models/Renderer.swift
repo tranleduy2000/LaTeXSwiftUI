@@ -37,7 +37,7 @@ import Cocoa
 @available(iOS 16.0, *)
 /// Renders equation components and updates their rendered image and offset
 /// values.
-internal class Renderer: ObservableObject {
+public class Renderer: ObservableObject {
   
   // MARK: Types
   
@@ -76,12 +76,16 @@ internal class Renderer: ObservableObject {
   /// Semaphore for thread-safe access to `_parsedBlocks`.
   private var _parsedBlocksSemaphore = DispatchSemaphore(value: 1)
   
+  public init() {
+    
+  }
+  
 }
 
 // MARK: Public methods
 
 @available(iOS 16.0, *)
-extension Renderer {
+public extension Renderer {
   
   /// Returns whether the view's components are cached.
   ///
@@ -205,14 +209,14 @@ extension Renderer {
       // Do we have an error?
       if let errorText = svg.errorText, errorMode != .rendered {
         switch errorMode {
-        case .original:
-          // Use the original tex input
-          text = Text(blockRenderingMode == .alwaysInline ? component.originalTextTrimmingNewlines : component.originalText)
-        case .error:
-          // Use the error text
-          text = Text(errorText)
-        default:
-          text = Text("")
+          case .original:
+            // Use the original tex input
+            text = Text(blockRenderingMode == .alwaysInline ? component.originalTextTrimmingNewlines : component.originalText)
+          case .error:
+            // Use the error text
+            text = Text(errorText)
+          default:
+            text = Text("")
         }
       }
       else if let (image, _, _) = convertToImage(

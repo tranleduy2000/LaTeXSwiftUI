@@ -29,19 +29,19 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 /// A block of components.
-internal struct ComponentBlock: Hashable, Identifiable {
+public struct ComponentBlock: Hashable, Identifiable {
   
   /// The component's identifier.
   ///
   /// Unique to every instance.
-  let id = UUID()
+  public let id = UUID()
   
   /// The block's components.
-  let components: [Component]
+  public let components: [Component]
   
   /// True iff this block has only one component and that component is
   /// not inline.
-  var isEquationBlock: Bool {
+  public var isEquationBlock: Bool {
     components.count == 1 && !components[0].type.inline
   }
   
@@ -55,7 +55,7 @@ internal struct ComponentBlock: Hashable, Identifiable {
   ///   - errorMode: The error mode.
   ///   - blockRenderingMode: The block rendering mode.
   /// - Returns: A `Text` view.
-  @MainActor func toText(
+  @MainActor public func toText(
     using renderer: Renderer,
     font: Font?,
     displayScale: CGFloat,
@@ -79,10 +79,10 @@ internal struct ComponentBlock: Hashable, Identifiable {
 
 @available(iOS 16.0, *)
 /// A LaTeX component.
-internal struct Component: CustomStringConvertible, Equatable, Hashable {
+public struct Component: CustomStringConvertible, Equatable, Hashable {
   
   /// A LaTeX component type.
-  enum ComponentType: String, Equatable, CustomStringConvertible {
+  public enum ComponentType: String, Equatable, CustomStringConvertible {
     
     /// A text component.
     case text
@@ -113,53 +113,53 @@ internal struct Component: CustomStringConvertible, Equatable, Hashable {
     case namedNoNumberEquation
     
     /// The component's description.
-    var description: String {
+    public var description: String {
       rawValue
     }
     
     /// The component's left terminator.
     var leftTerminator: String {
       switch self {
-      case .text: return ""
-      case .inlineEquation: return "$"
-      case .texEquation: return "$$"
-      case .blockEquation: return "\\["
-      case .namedEquation: return "\\begin{equation}"
-      case .namedNoNumberEquation: return "\\begin{equation*}"
+        case .text: return ""
+        case .inlineEquation: return "$"
+        case .texEquation: return "$$"
+        case .blockEquation: return "\\["
+        case .namedEquation: return "\\begin{equation}"
+        case .namedNoNumberEquation: return "\\begin{equation*}"
       }
     }
     
     /// The component's right terminator.
     var rightTerminator: String {
       switch self {
-      case .text: return ""
-      case .inlineEquation: return "$"
-      case .texEquation: return "$$"
-      case .blockEquation: return "\\]"
-      case .namedEquation: return "\\end{equation}"
-      case .namedNoNumberEquation: return "\\end{equation*}"
+        case .text: return ""
+        case .inlineEquation: return "$"
+        case .texEquation: return "$$"
+        case .blockEquation: return "\\]"
+        case .namedEquation: return "\\end{equation}"
+        case .namedNoNumberEquation: return "\\end{equation*}"
       }
     }
     
     /// Whether or not this component is inline.
-    var inline: Bool {
+    public var inline: Bool {
       switch self {
-      case .text, .inlineEquation: return true
-      default: return false
+        case .text, .inlineEquation: return true
+        default: return false
       }
     }
     
     /// True iff the component is not `text`.
-    var isEquation: Bool {
+    public var isEquation: Bool {
       return self != .text
     }
   }
   
   /// The component's inner text.
-  let text: String
+  public let text: String
   
   /// The component's type.
-  let type: ComponentType
+  public let type: ComponentType
   
   /// The component's SVG image.
   let svg: SVG?
@@ -180,7 +180,7 @@ internal struct Component: CustomStringConvertible, Equatable, Hashable {
   }
   
   /// The component's description.
-  var description: String {
+  public var description: String {
     return "(\(type), \"\(text)\")"
   }
   

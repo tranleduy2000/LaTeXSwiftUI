@@ -2,6 +2,7 @@ import MathJaxSwift
 import XCTest
 @testable import LaTeXSwiftUI
 
+@available(iOS 16.0, *)
 final class GeometryTests: XCTestCase {
   
   func testInitXHeight_Success1() {
