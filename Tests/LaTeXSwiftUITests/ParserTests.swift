@@ -63,6 +63,39 @@ final class ParserTests: XCTestCase {
     assertComponent(components, 0, input, .text)
   }
   
+  
+  func testParseInlineParenthesesOnly() {
+    let input = "\\(\\TeX\\)"
+    print(input)
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 1)
+    assertComponent(components, 0, "\\TeX", .inlineEquation2)
+  }
+  
+  func testParseInlineParentheses_Normal() {
+    let input = #"Hello, \(\TeX\)!"#
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 3)
+    assertComponent(components, 0, "Hello, ", .text)
+    assertComponent(components, 1, "\\TeX", .inlineEquation2)
+    assertComponent(components, 2, "!", .text)
+  }
+  
+  
+  func testParseInlineParentheses_LeftEscaped() {
+    let input = #"Hello, \\(\TeX\)!"#
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 1)
+    assertComponent(components, 0, input, .text)
+  }
+  
+  func testParseInlineParentheses_RightEscaped() {
+    let input = #"Hello, \(\TeX\\)!"#
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 1)
+    assertComponent(components, 0, input, .text)
+  }
+  
   func testParseDoubleDollarOnly() {
     let input = "$$\\TeX$$"
     let components = Parser.parse(input)

@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
   name: "LaTeXSwiftUI",
   platforms: [
-    .iOS(.v13),
+    .iOS(.v14), // SVGView requires min v14
     .macOS(.v13),
     .macCatalyst(.v13)
   ],

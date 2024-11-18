@@ -92,6 +92,11 @@ public struct Component: CustomStringConvertible, Equatable, Hashable {
     /// - Example: `$x^2$`
     case inlineEquation
     
+    /// An inline equation component.
+    ///
+    /// - Example: `\(x^2\)`
+    case inlineEquation2
+    
     /// A TeX-style block equation.
     ///
     /// - Example: `$$x^2$$`.
@@ -122,6 +127,7 @@ public struct Component: CustomStringConvertible, Equatable, Hashable {
       switch self {
         case .text: return ""
         case .inlineEquation: return "$"
+        case .inlineEquation2: return "\\("
         case .texEquation: return "$$"
         case .blockEquation: return "\\["
         case .namedEquation: return "\\begin{equation}"
@@ -134,6 +140,7 @@ public struct Component: CustomStringConvertible, Equatable, Hashable {
       switch self {
         case .text: return ""
         case .inlineEquation: return "$"
+        case .inlineEquation2: return "\\)"
         case .texEquation: return "$$"
         case .blockEquation: return "\\]"
         case .namedEquation: return "\\end{equation}"
@@ -144,7 +151,7 @@ public struct Component: CustomStringConvertible, Equatable, Hashable {
     /// Whether or not this component is inline.
     public var inline: Bool {
       switch self {
-        case .text, .inlineEquation: return true
+        case .text, .inlineEquation, .inlineEquation2: return true
         default: return false
       }
     }

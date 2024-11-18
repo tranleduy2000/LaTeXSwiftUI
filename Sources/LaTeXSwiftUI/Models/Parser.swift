@@ -46,6 +46,13 @@ internal struct Parser {
     terminatingRegex: #/\$/#,
     equation: .inlineEquation)
   
+  // \( 2x \times 3 = 4 \)
+  static let inline2 = EquationComponent(
+    regex: #/\\\((.*?)\\\)/#,
+    terminatingRegex: #/\\\)/#,
+    equation: .inlineEquation2)
+  
+  
   /// An TeX-style block equation component.
   static let tex = EquationComponent(
     regex: #/\$\$\s*(.*?)\s*\$\$/#,
@@ -73,6 +80,7 @@ internal struct Parser {
   // Order matters
   static let allEquations: [EquationComponent] = [
     inline,
+    inline2,
     tex,
     block,
     named,
