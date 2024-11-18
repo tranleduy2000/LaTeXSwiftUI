@@ -29,22 +29,67 @@ import SwiftUI
 struct LaTeX_Previews_Block: PreviewProvider {
   
   static var previews: some View {
-    VStack {
+    VStack(alignment: .leading) {
+      
+      
+      LaTeX("Euler's identity is $e^{i\\pi}+1=0$.")
+        .font(.body)
+        .parsingMode(.onlyEquations)
+      
+      
       LaTeX("Inline latex $x^2 + 2x - 3 = -\\frac{1}{2}$")
         .font(.body)
       
-       LaTeX("Inline latex 2 \\(x^2 + 2x - 3 = -\\frac{1}{2} \\)")
+      LaTeX("Inline latex 2 \\(x^2 + 2x - 3 = -\\frac{1}{2} \\)")
         .font(.body)
       
-       LaTeX("Block latex $$x^2 + 2x - 3 = -\\frac{1}{2}$$")
+      LaTeX("Block latex $$x^2 + 2x - 3 = -\\frac{1}{2}$$")
         .font(.body)
       
-       LaTeX("Block latex 2 \\[ x^2 + 2x - 3 = -\\frac{1}{2} \\]")
+      LaTeX("Block latex 2 \\[ x^2 + 2x - 3 = -\\frac{1}{2} \\]")
         .font(.body)
+      
+      
+      LaTeX(
+        #"""
+        \begin{equation}
+          a^2 + b^2 = c^2 \\
+          \int_a^b f(x) \, dx = F(b) - F(a) \\
+          \lim_{x \to 0} \frac{\sin(x)}{x} = 1
+        \end{equation}
+        """#
+      )
+      .font(.system(size: 30))
+      
+      LaTeX(
+        #"""
+        $$
+        \begin{matrix} 
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9
+        \end{matrix}
+        $$
+        """#
+      )
+      .errorMode(.error)
+      
+      LaTeX(
+        #"""
+        $$
+        \begin{align}
+        a^2 + b^2 &= c^2 \\
+        \int_a^b f(x) \, dx &= F(b) - F(a) \\
+        \lim_{x \to 0} \frac{\sin(x)}{x} &= 1
+        \end{align}
+        $$
+        """#
+      )
       
     }
     .previewLayout(.sizeThatFits)
     .previewDisplayName("Hello, LaTeX!")
+    .padding(.horizontal)
   }
   
 }

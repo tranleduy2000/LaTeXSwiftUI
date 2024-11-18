@@ -11,13 +11,18 @@ import XCTest
 
 @available(iOS 16.0, *)
 final class ParserTests: XCTestCase {
-
+  
+  override func setUp() {
+    super.setUp()
+    continueAfterFailure = false
+  }
+  
   func assertComponent(_ components: [Component], _ index: Int, _ text: String, _ type: Component.ComponentType, file: StaticString = #file, line: UInt = #line) {
     guard index < components.count else {
-      XCTFail()
+      XCTFail("\(index) < \(components.count)")
       return
     }
-    XCTAssertEqual(components[index], Component(text: text, type: type))
+    XCTAssertEqual(components[index], Component(text: text, type: type), file: file, line: line)
   }
   
   func testParseEmpty() {
@@ -325,6 +330,36 @@ final class ParserTests: XCTestCase {
     let components = Parser.parse(input)
     XCTAssertEqual(components.count, 3)
     assertComponent(components, 1, equation, .namedNoNumberEquation)
+  }
+
+  func testParseBlockBeginEnd() {
+    let input =
+            #"""
+            \[
+            \begin{align}
+            a^2 + b^2 &= c^2 \\
+            \int_a^b f(x) \, dx &= F(b) - F(a) \\
+            \lim_{x \to 0} \frac{\sin(x)}{x} &= 1
+            \end{align}
+            \]
+            """#
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 1)
+    assertComponent(components, 0, input, .blockEquation)
+  }
+
+  func testParseBlockBeginEnd2() {
+    let input =
+          #"""
+          \begin{equation}
+          a^2 + b^2 &= c^2 \\
+          \int_a^b f(x) \, dx &= F(b) - F(a) \\
+          \lim_{x \to 0} \frac{\sin(x)}{x} &= 1
+          \end{equation}
+          """#
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 1)
+    assertComponent(components, 0, input, .namedEquation)
   }
 
 }
