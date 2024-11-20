@@ -26,7 +26,8 @@
 import Foundation
 import MathJaxSwift
 import SwiftUI
-import SVGView
+//import SVGView
+import SDWebImageSVGCoder
 
 #if os(iOS)
 import UIKit
@@ -298,17 +299,23 @@ public extension Renderer {
     let width = svg.geometry.width.toPoints(font.xHeight)
     let height = svg.geometry.height.toPoints(font.xHeight)
     
-    // Render the view
-    let view = SVGView(data: svg.data)
-    let renderer = ImageRenderer(content: view.frame(width: width, height: height))
-#if os(iOS)
-    renderer.scale = UIScreen.main.scale
-    let image = renderer.image
-#else
-    renderer.scale = NSScreen.main?.backingScaleFactor ?? 1
-    let image = renderer.image
-#endif
+    // !!! SVGView is buggy, the following code cannot render unicode text correctly,
+    // see LaTeX_Previews_UnicodeLatex
     
+    // Render the view
+    //let view = SVGView(data: svg.data)
+    //    let renderer = ImageRenderer(content: view.frame(width: width, height: height))
+    //#if os(iOS)
+    //    renderer.scale = UIScreen.main.scale
+    //    let image = renderer.image
+    //#else
+    //    renderer.scale = NSScreen.main?.backingScaleFactor ?? 1
+    //    let image = renderer.image
+    //#endif
+    
+    let image = SDImageSVGCoder.shared.decodedImage(
+      with: component.svg?.data,
+      options: [.decodeThumbnailPixelSize: CGSize(width: width, height: height)])
     if let image = image {
       Cache.shared.setImageCacheValue(image, for: cacheKey)
       return (Image(image: image)

@@ -17,16 +17,18 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/colinc86/MathJaxSwift", from: "3.4.0"),
-    .package(url: "https://github.com/exyte/SVGView", from: "1.0.4"),
-    .package(url: "https://github.com/Kitura/swift-html-entities", from: "4.0.1")
+    //.package(url: "https://github.com/exyte/SVGView", from: "1.0.4"),
+    .package(url: "https://github.com/Kitura/swift-html-entities", from: "4.0.1"),
+    .package(url: "https://github.com/SDWebImage/SDWebImageSVGCoder.git", from: "1.4.0")
   ],
   targets: [
     .target(
       name: "LaTeXSwiftUI",
       dependencies: [
         "MathJaxSwift",
-        "SVGView",
-        .product(name: "HTMLEntities", package: "swift-html-entities")
+        //"SVGView",
+        .product(name: "HTMLEntities", package: "swift-html-entities"),
+        .product(name: "SDWebImageSVGCoder", package: "SDWebImageSVGCoder")
       ]),
     .testTarget(
       name: "LaTeXSwiftUITests",
