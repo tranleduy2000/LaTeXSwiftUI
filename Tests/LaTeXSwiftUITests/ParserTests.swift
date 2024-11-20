@@ -362,4 +362,24 @@ final class ParserTests: XCTestCase {
     assertComponent(components, 0, input, .namedEquation)
   }
 
+  func testAutoAddDisplaylines() {
+    let input =
+          #"""
+          $$
+          1 + 2 \\
+          2 + 3
+          $$
+          """#
+    let components = Parser.parse(input)
+    XCTAssertEqual(components.count, 1)
+    assertComponent(components, 0,
+                    #"""
+                    \displaylines{
+                    1 + 2 \\
+                    2 + 3
+                    \}
+                    """#
+                    , .texEquation)
+  }
+
 }
