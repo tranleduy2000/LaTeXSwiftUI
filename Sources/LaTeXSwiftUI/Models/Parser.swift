@@ -336,12 +336,13 @@ extension Parser {
     // quick fix for case that mathjax does not render multlines tex $$1 + 2 \\ 2 + 3$$
     // it wont work for all cases, just a quick hack
     for (index, component) in components.enumerated() {
-      if component.type.isEquation
+      if (component.type == .texEquation || component.type == .blockEquation)
           && component.text.contains("\\\\")
           && !component.text.contains("begin")
           && !component.text.contains("\\displaylines") {
         
-        let newComponent: Component = .init(text: "\\displaylines{\(component.text)\\}", type: component.type)
+        print(component.type, component.text)
+        let newComponent: Component = .init(text: "\\displaylines{\n\(component.text)\n}", type: component.type)
         components[index] = newComponent;
       }
     }

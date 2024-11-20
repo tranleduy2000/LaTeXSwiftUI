@@ -86,6 +86,17 @@ struct LaTeX_Previews_Block: PreviewProvider {
         """#
       )
       
+      LaTeX(
+        #"""
+        \[
+        u_3 = u_1 + 2d \\
+        10 = 4 + 2d\\
+        2d = 6 \\
+        d = 3
+        \]
+        """#
+      )
+      
     }
     .previewLayout(.sizeThatFits)
     .previewDisplayName("Hello, LaTeX!")
