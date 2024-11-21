@@ -26,7 +26,7 @@
 import Foundation
 import MathJaxSwift
 import SwiftUI
-//import SVGView
+import SVGView
 import SDWebImageSVGCoder
 
 #if os(iOS)
@@ -298,30 +298,45 @@ public extension Renderer {
     // Continue with getting the image
     let width = svg.geometry.width.toPoints(font.xHeight)
     let height = svg.geometry.height.toPoints(font.xHeight)
+    print("width = \(width), height = \(height)")
     
     // !!! SVGView is buggy, the following code cannot render unicode text correctly,
     // see LaTeX_Previews_UnicodeLatex
     
-    // Render the view
-    //let view = SVGView(data: svg.data)
-    //    let renderer = ImageRenderer(content: view.frame(width: width, height: height))
-    //#if os(iOS)
-    //    renderer.scale = UIScreen.main.scale
-    //    let image = renderer.image
-    //#else
-    //    renderer.scale = NSScreen.main?.backingScaleFactor ?? 1
-    //    let image = renderer.image
-    //#endif
-    
-    let image = SDImageSVGCoder.shared.decodedImage(
+    var image = SDImageSVGCoder.shared.decodedImage(
       with: component.svg?.data,
-      options: [.decodeThumbnailPixelSize: CGSize(width: width, height: height)])
+      options: [
+        .decodeThumbnailPixelSize: CGSize(width: width, height: height),
+//                .encodeBackgroundColor: UIColor.black,
+//                .encodeMaxPixelSize: CGSize(width: width, height: height),
+                .decodePreserveAspectRatio: true,
+
+        ])
+    
+    // SDImageSVGCoder fails to render \( l \), retry with SVGView again
+    if image == nil || (image != nil && image!.size.height < 1) {
+      
+      // Render the view
+      let view = SVGView(data: svg.data)
+      let renderer = ImageRenderer(content: view.frame(width: width, height: height))
+#if os(iOS)
+      renderer.scale = UIScreen.main.scale
+      image = renderer.image
+#else
+      renderer.scale = NSScreen.main?.backingScaleFactor ?? 1
+      image = renderer.image
+#endif
+    }
+
     if let image = image {
+      print("image = ", image.size)
       Cache.shared.setImageCacheValue(image, for: cacheKey)
       return (Image(image: image)
         .renderingMode(renderingMode)
         .antialiased(true)
         .interpolation(.high), image.size, svg.errorText)
+    } else {
+      print("Error: cannot decode svg")
     }
     return nil
   }
